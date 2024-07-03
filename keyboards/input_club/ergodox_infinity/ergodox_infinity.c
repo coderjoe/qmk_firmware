@@ -224,6 +224,10 @@ __attribute__((weak)) void st7565_off_user(void) {
     ergodox_infinity_lcd_color(0, 0, 0);
 }
 
+const char led_layer_indicators[] = {
+    '1','F','M','1','1','G','1','1','1','1','1','1','1','1','1','L'
+};
+
 static void format_layer_bitmap_string(char* buffer, uint8_t offset) {
     for (int i = 0; i < 16 && i + offset < MAX_LAYER; i++) {
         if (i == 0 || i == 4 || i == 8 || i == 12) {
@@ -235,7 +239,7 @@ static void format_layer_bitmap_string(char* buffer, uint8_t offset) {
         if (layer_state_cmp(default_layer_state, layer)) {
             *buffer = 'D';
         } else if (layer_state_is(layer)) {
-            *buffer = '1';
+            *buffer = led_layer_indicators[layer];
         } else {
             *buffer = '_';
         }
